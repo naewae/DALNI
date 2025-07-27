@@ -13,11 +13,12 @@
 - الكود جاهز للعمل على [DartPad](https://dartpad.dev).
 - **انسخ ملف main.dart بالكامل وضعه في DartPad ليظهر لك التطبيق.**
 
-
-
+## 📁 الملفات:
+- main.dart : جميع كود التطبيق.
 
 ## 📷 صور من التطبيق:
-- <img width="1133" height="2294" alt="Picture2" src="https://github.com/user-attachments/assets/219c1123-46fa-45ad-abe4-42e8dd7ab641" />
+- *- <img width="1133" height="2294" alt="Picture2" src="https://github.com/user-attachments/assets/219c1123-46fa-45ad-abe4-42e8dd7ab641" />
+
 
 
 ## 📩 للتواصل:
