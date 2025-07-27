@@ -11,6 +11,31 @@ class DalniApp extends StatelessWidget {
       title: 'Dalni App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            textStyle: const TextStyle(fontSize: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        ),
+        cardTheme: CardThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
         fontFamily: 'Tajawal',
       ),
       debugShowCheckedModeBanner: false,
@@ -58,6 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const Center(
               child: Text(
                 "دلني\nDALNI",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -88,9 +114,9 @@ class _LoginScreenState extends State<LoginScreen> {
               alignment: Alignment.centerLeft,
               child: GestureDetector(
                 onTap: () {
-                  // Handle "Forgot Password" logic
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('نسيت كلمة المرور؟ (لم يتم التفعيل بعد)')),
+                    const SnackBar(
+                        content: Text('نسيت كلمة المرور؟ (لم يتم التفعيل بعد)')),
                   );
                 },
                 child: const Text(
@@ -102,14 +128,14 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                // In a real application, you'd validate credentials here
-                Navigator.pushReplacement<void, void>(
+                // In a real app, validate credentials and then navigate
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute<void>(builder: (_) => const HomeScreen()),
                 );
               },
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 40),
+                minimumSize: const Size(double.infinity, 48),
               ),
               child: const Text('تسجيل الدخول'),
             ),
@@ -132,9 +158,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   icon: const Icon(Icons.g_mobiledata, color: Colors.red),
                   label: const Text('Google'),
                   onPressed: () {
-                    // Handle Google login
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('تسجيل الدخول عبر Google (لم يتم التفعيل بعد)')),
+                      const SnackBar(
+                          content: Text(
+                              'تسجيل الدخول عبر Google (لم يتم التفعيل بعد)')),
                     );
                   },
                 ),
@@ -143,9 +170,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   icon: const Icon(Icons.facebook, color: Colors.blue),
                   label: const Text('Facebook'),
                   onPressed: () {
-                    // Handle Facebook login
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('تسجيل الدخول عبر Facebook (لم يتم التفعيل بعد)')),
+                      const SnackBar(
+                          content: Text(
+                              'تسجيل الدخول عبر Facebook (لم يتم التفعيل بعد)')),
                     );
                   },
                 ),
@@ -154,18 +182,21 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 18),
             GestureDetector(
               onTap: () {
-                // Handle "Create Account" navigation
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('إنشاء حساب (لم يتم التفعيل بعد)')),
+                  const SnackBar(
+                      content: Text('إنشاء حساب (لم يتم التفعيل بعد)')),
                 );
               },
               child: const Text.rich(
                 TextSpan(
                   text: 'ليس لديك حساب؟ ',
                   children: <TextSpan>[
-                    TextSpan(text: 'إنشاء حساب', style: TextStyle(color: Colors.blue)),
+                    TextSpan(
+                        text: 'إنشاء حساب',
+                        style: TextStyle(color: Colors.blue)),
                   ],
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
           ],
@@ -179,6 +210,8 @@ class _LoginScreenState extends State<LoginScreen> {
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  static const int _homeIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,9 +219,9 @@ class HomeScreen extends StatelessWidget {
         title: const Text('دلني DALNI'),
       ),
       bottomNavigationBar: DalniNavBar(
-        currentIndex: 0, // Assuming 0 is the home index for the nav bar
+        currentIndex: _homeIndex,
         onItemSelected: (int index) {
-          // In a real app, this would change the body or navigate to other tabs
+          // In a real app, this would navigate to different pages
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('تم اختيار العنصر رقم: $index')),
           );
@@ -207,16 +240,17 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Row(
                 children: <Widget>[
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.blue,
-                    child: const Icon(Icons.person, size: 32, color: Colors.white),
+                    child: Icon(Icons.person, size: 32, color: Colors.white),
                   ),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const <Widget>[
-                      Text('أهلاً بك', style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text('أهلاً بك',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                       Text('الاسم: عبدالله'),
                       Text('العمر: 19'),
                       Text(
@@ -235,11 +269,11 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Row(
-              children: <Widget>[
+              children: const <Widget>[
                 Expanded(child: AirportCard('مطار الملك فهد', Colors.purple)),
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
                 Expanded(child: AirportCard('مطار جدة', Colors.blue)),
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
                 Expanded(child: AirportCard('مطار الملك خالد', Colors.teal)),
               ],
             ),
@@ -258,9 +292,10 @@ class HomeScreen extends StatelessWidget {
                         'المطاعم',
                         Icons.fastfood,
                         () {
-                          Navigator.push<void>(
+                          Navigator.push(
                             context,
-                            MaterialPageRoute<void>(builder: (_) => const RestaurantsScreen()),
+                            MaterialPageRoute<void>(
+                                builder: (_) => const RestaurantsScreen()),
                           );
                         },
                       ),
@@ -271,9 +306,10 @@ class HomeScreen extends StatelessWidget {
                         'الخطة الزمنية',
                         Icons.timeline,
                         () {
-                          Navigator.push<void>(
+                          Navigator.push(
                             context,
-                            MaterialPageRoute<void>(builder: (_) => const TimelineScreen()),
+                            MaterialPageRoute<void>(
+                                builder: (_) => const TimelineScreen()),
                           );
                         },
                       ),
@@ -284,9 +320,10 @@ class HomeScreen extends StatelessWidget {
                         'المقاهي',
                         Icons.local_cafe,
                         () {
-                          Navigator.push<void>(
+                          Navigator.push(
                             context,
-                            MaterialPageRoute<void>(builder: (_) => const CafesScreen()),
+                            MaterialPageRoute<void>(
+                                builder: (_) => const CafesScreen()),
                           );
                         },
                       ),
@@ -301,9 +338,10 @@ class HomeScreen extends StatelessWidget {
                         'مواقف السيارات',
                         Icons.local_parking,
                         () {
-                          Navigator.push<void>(
+                          Navigator.push(
                             context,
-                            MaterialPageRoute<void>(builder: (_) => const ParkingScreen()),
+                            MaterialPageRoute<void>(
+                                builder: (_) => const ParkingScreen()),
                           );
                         },
                       ),
@@ -314,9 +352,10 @@ class HomeScreen extends StatelessWidget {
                         'المتاجر',
                         Icons.store,
                         () {
-                          Navigator.push<void>(
+                          Navigator.push(
                             context,
-                            MaterialPageRoute<void>(builder: (_) => const StoresScreen()),
+                            MaterialPageRoute<void>(
+                                builder: (_) => const StoresScreen()),
                           );
                         },
                       ),
@@ -327,9 +366,10 @@ class HomeScreen extends StatelessWidget {
                         'خدمات أخرى',
                         Icons.more_horiz,
                         () {
-                          Navigator.push<void>(
+                          Navigator.push(
                             context,
-                            MaterialPageRoute<void>(builder: (_) => const OtherServicesScreen()),
+                            MaterialPageRoute<void>(
+                                builder: (_) => const OtherServicesScreen()),
                           );
                         },
                       ),
@@ -346,7 +386,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Custom Widgets definitions
+// الودجت الخاصة بالتنقّل السفلي
 class DalniNavBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int>? onItemSelected;
@@ -395,7 +435,6 @@ class AirportCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: InkWell(
         onTap: () {
-          // Handle airport selection
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('تم اختيار: $airportName')),
           );
@@ -412,7 +451,7 @@ class AirportCard extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 13,
+                  fontSize: 14,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -425,31 +464,29 @@ class AirportCard extends StatelessWidget {
 }
 
 class ServiceCard extends StatelessWidget {
-  final String serviceName;
-  final IconData serviceIcon;
+  final String label;
+  final IconData icon;
   final VoidCallback onTap;
 
-  const ServiceCard(this.serviceName, this.serviceIcon, this.onTap,
-      {super.key});
+  const ServiceCard(this.label, this.icon, this.onTap, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 2,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(10),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 8.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(serviceIcon, size: 40, color: Colors.blue),
-              const SizedBox(height: 10),
+              Icon(icon, size: 36, color: Colors.blue),
+              const SizedBox(height: 8),
               Text(
-                serviceName,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                label,
+                style: const TextStyle(fontSize: 15, color: Colors.black),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -460,24 +497,26 @@ class ServiceCard extends StatelessWidget {
   }
 }
 
-// Service Screens
+// شاشة المطاعم
 class RestaurantsScreen extends StatelessWidget {
-  // تعريف بيانات المطاعم
   final List<Map<String, dynamic>> restaurants = const <Map<String, dynamic>>[
-    <String, dynamic>{
-      'name': 'برجر كنج',
-      'desc': 'خصم خاص للمسافرين!',
-      'rate': 4.6,
+    {
+      'name': 'Burger King',
+      'offer': 'خصم 25%',
+      'desc': 'خصم خاص عند الطلب عبر التطبيق',
+      'logo': Icons.fastfood,
     },
-    <String, dynamic>{
-      'name': 'ستاربكس',
-      'desc': 'قهوة طازجة، اطلب مسبقاً.',
-      'rate': 4.8,
+    {
+      'name': 'Starbucks',
+      'offer': 'هدية مشروب مجاني',
+      'desc': 'عند أول طلب',
+      'logo': Icons.local_cafe,
     },
-    <String, dynamic>{
+    {
       'name': 'كودو',
-      'desc': 'ساندويتشات طازجة وسريعة',
-      'rate': 4.3,
+      'offer': 'وجبة مجانية للأطفال',
+      'desc': 'كل ثلاث طلبات',
+      'logo': Icons.lunch_dining,
     },
   ];
 
@@ -487,29 +526,25 @@ class RestaurantsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('المطاعم'),
+        title: const Text("المطاعم"),
       ),
       body: ListView.builder(
+        padding: const EdgeInsets.all(16),
         itemCount: restaurants.length,
         itemBuilder: (BuildContext context, int index) {
-          final Map<String, dynamic> restaurant = restaurants[index];
+          final Map<String, dynamic> rest = restaurants[index];
           return Card(
-            margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            margin: const EdgeInsets.only(bottom: 16),
+            elevation: 4,
             child: ListTile(
-              title: Text(restaurant['name'] as String),
-              subtitle: Text(restaurant['desc'] as String),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Icon(Icons.star, color: Colors.amber),
-                  Text((restaurant['rate'] as double).toString()),
-                ],
-              ),
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('تم اختيار مطعم: ${restaurant['name']}')),
-                );
-              },
+              leading: Icon(rest['logo'] as IconData,
+                  size: 40, color: Colors.orange),
+              title: Text(rest['name'] as String,
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: Text(rest['desc'] as String),
+              trailing: Text(rest['offer'] as String,
+                  style: const TextStyle(
+                      color: Colors.red, fontWeight: FontWeight.bold)),
             ),
           );
         },
@@ -518,26 +553,68 @@ class RestaurantsScreen extends StatelessWidget {
   }
 }
 
+// شاشة الخط الزمني للرحلة
 class TimelineScreen extends StatelessWidget {
+  final List<String> steps = const <String>[
+    "الوصول إلى المطار",
+    "إنهاء إجراءات السفر",
+    "الجوازات",
+    "الفحص الأمني",
+    "التوجه للبوابة",
+    "الصعود للطائرة"
+  ];
+
   const TimelineScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الخطة الزمنية'),
+        title: const Text("الخطة الزمنية للرحلة"),
       ),
-      body: const Center(
-        child: Text(
-          'هنا ستعرض الخطة الزمنية لرحلتك.',
-          style: TextStyle(fontSize: 18),
-          textAlign: TextAlign.center,
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            const Text("إغلاق البوابة خلال",
+                style: TextStyle(fontSize: 18, color: Colors.black)),
+            const Text("1h 5m",
+                style: TextStyle(
+                    fontSize: 36,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold)),
+            const SizedBox(height: 28),
+            Expanded(
+              child: ListView.separated(
+                reverse: true, // Display latest step at the bottom
+                itemCount: steps.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    trailing: Icon(Icons.check_circle,
+                        color: index == 0
+                            ? Colors.green
+                            : Colors
+                                .grey), // Mark the first step as active/done
+                    title: Align(
+                      alignment: Alignment.centerRight,
+                      child:
+                          Text(steps[index], style: const TextStyle(fontSize: 17)),
+                    ),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
+// شاشة المقاهي
 class CafesScreen extends StatelessWidget {
   const CafesScreen({super.key});
 
@@ -545,19 +622,19 @@ class CafesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('المقاهي'),
+        title: const Text("المقاهي"),
       ),
       body: const Center(
         child: Text(
-          'هنا ستعرض قائمة المقاهي المتاحة.',
-          style: TextStyle(fontSize: 18),
-          textAlign: TextAlign.center,
+          "شاشة المقاهي قيد الإنشاء",
+          style: TextStyle(fontSize: 20, color: Colors.grey),
         ),
       ),
     );
   }
 }
 
+// شاشة مواقف السيارات
 class ParkingScreen extends StatelessWidget {
   const ParkingScreen({super.key});
 
@@ -565,19 +642,19 @@ class ParkingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('مواقف السيارات'),
+        title: const Text("مواقف السيارات"),
       ),
       body: const Center(
         child: Text(
-          'هنا ستعرض معلومات مواقف السيارات.',
-          style: TextStyle(fontSize: 18),
-          textAlign: TextAlign.center,
+          "شاشة مواقف السيارات قيد الإنشاء",
+          style: TextStyle(fontSize: 20, color: Colors.grey),
         ),
       ),
     );
   }
 }
 
+// شاشة المتاجر
 class StoresScreen extends StatelessWidget {
   const StoresScreen({super.key});
 
@@ -585,19 +662,19 @@ class StoresScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('المتاجر'),
+        title: const Text("المتاجر"),
       ),
       body: const Center(
         child: Text(
-          'هنا ستعرض قائمة المتاجر المتاحة.',
-          style: TextStyle(fontSize: 18),
-          textAlign: TextAlign.center,
+          "شاشة المتاجر قيد الإنشاء",
+          style: TextStyle(fontSize: 20, color: Colors.grey),
         ),
       ),
     );
   }
 }
 
+// شاشة خدمات أخرى
 class OtherServicesScreen extends StatelessWidget {
   const OtherServicesScreen({super.key});
 
@@ -605,13 +682,12 @@ class OtherServicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('خدمات أخرى'),
+        title: const Text("خدمات أخرى"),
       ),
       body: const Center(
         child: Text(
-          'هنا ستعرض معلومات عن خدمات أخرى.',
-          style: TextStyle(fontSize: 18),
-          textAlign: TextAlign.center,
+          "شاشة الخدمات الأخرى قيد الإنشاء",
+          style: TextStyle(fontSize: 20, color: Colors.grey),
         ),
       ),
     );
