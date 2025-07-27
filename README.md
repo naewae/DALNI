@@ -10,14 +10,15 @@
 - شات بوت للمساعدة.
 
 ## 🚀 تجربة سريعة
-- الكود جاهز للعمل على [DartPad](https://dartpad.dev).
-- **انسخ ملف main.dart بالكامل وضعه في DartPad ليظهر لك التطبيق.**
+- الكود جاهز للعمل على Visual studio code
+- **انسخ ملف main.dart بالكامل وضعه في Visual studio code\يظهر لك التطبيق.**
 
 ## 📁 الملفات:
 - main.dart : جميع كود التطبيق.
+![dulani photo ](https://github.com/user-attachments/assets/7a131d87-f7b9-465a-9df9-1ee7d920108d)
 
 ## 📷 صور من التطبيق:
-- *- <img width="1133" height="2294" alt="Picture2" src="https://github.com/user-attachments/assets/219c1123-46fa-45ad-abe4-42e8dd7ab641" />
+
 
 
 
